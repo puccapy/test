@@ -7,10 +7,11 @@ Created on Created on 2017-09-21
 from jira import JIRA
 import urllib, urllib2
 import json
-#登录jira
+
 class Login:
 
     def __init__(self):
+        #登录jira
         self.username = 'huangdxb'
         self.password = '831292puccatb'
         self.jira = JIRA("http://172.29.3.241", basic_auth=(self.username, self.password))
