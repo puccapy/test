@@ -14,7 +14,7 @@ class Login:
         #登录jira
         self.username = 'huangdxb'
         self.password = '831292puccatb'
-        self.jira = JIRA("http://172.29.3.241", basic_auth=(self.username, self.password))
+        self.jira = JIRA("http://172.29.2.140:8001", basic_auth=(self.username, self.password))
         self.ISSUE_ID = '24086'
         
     def print_jira(self):
@@ -25,11 +25,24 @@ class Login:
         else :
             print issue.fields.summary + '\n'
             print issue.fields.description + '\n'
+            print issue.fields.security.id+ '\n'
+            print issue.fields.priority.id
             print type(issue.fields.description)
             print str(issue.fields.issuetype) + '\n'
             print type(issue.fields.issuetype)
             print issue.fields.project.name + '\n'
             print issue.fields.creator.displayName + '\n'
+            
+            issue_dict = {
+                   'project': {'id': 10603},
+                   'summary': '【'+issue.fields.project.name+'】'+'【生产缺陷】'+'New issue from jira-python7',
+                   'description': 'Look into this one',
+                   'issuetype': {'name': '生产缺陷'},
+                   'security':{'id': '10101'},
+                   'priority':{'id':'2'}
+                         }
+            new_issue = self.jira.create_issue(fields=issue_dict)
+            print type(new_issue)
     
     def get(self):
         try :
@@ -50,4 +63,4 @@ class Login:
 if __name__ == '__main__':
     login = Login()
     login.print_jira()
-    login.get()
+    #login.get()
